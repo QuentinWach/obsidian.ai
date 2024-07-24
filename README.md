@@ -9,11 +9,14 @@ Again, this script systematically organizes & augments all your notes by
 + 🧠 reading and understanding every note
 + 🏷 remembering potential *tags* and *topics*
 + 🧶 [[linking]] and tagging up what belongs together
-+ 🎨 graph meta-data of your vault including a GitHub-like activity timeline.
++ 🎨 graph meta-data of your vault including 
+  + a GitHub-like activity timeline
+  + a bar-chart of your most popular tags.
 
-<img align="center" width="60%" margin-left="0px" src="images/vault_activity_heatmap.png"> 
+<img align="center" width="65%" margin-left="auto" src="images/vault_activity_heatmap.png"> 
+<img align="center" width="65%" margin-left="auto" src="images/tag_frequency_plot.png"> 
 
-<!-- Don't worry! The script is hardcoded to ensure **the process is non-destructive!** -->
+
 
 ---
 ### ❓ How to Use

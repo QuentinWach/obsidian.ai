@@ -155,8 +155,50 @@ def github_style_plot(daily_stats, start_date, end_date):
     plt.savefig('vault_activity_heatmap.png')
     plt.close()
 
+def create_tag_frequency_plot(tag_counts, top_n=20):
+    # Get the top N most common tags
+    top_tags = Counter(tag_counts).most_common(top_n)
+    tags, frequencies = zip(*top_tags)
+
+    # Create the plot
+    plt.figure(figsize=(6, 3))
+    bars = plt.bar(range(len(tags)), frequencies, align='center', color="grey")
+    plt.xticks(range(len(tags)), tags, rotation=45, ha='right')
+
+    # Customize the plot
+    plt.title(f'Top {top_n} Most Frequent Tags')
+    #plt.xlabel('Tags')
+    #plt.ylabel('Frequency')
+
+    # Show no  axis and no top and right spine
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['right'].set_visible(False)
+    plt.gca().spines['left'].set_visible(False)
+
+    # Show no left ticks
+    plt.tick_params(left=False)
+    # No left tick labels
+    plt.yticks([])
+
+    # Add value labels on top of each bar
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2., height,
+                 f'{height}',
+                 ha='center', va='bottom')
+
+    plt.tight_layout()
+    
+    # Save the plot as an image file
+    plt.savefig('tag_frequency_plot.png', dpi=100, bbox_inches='tight')
+    plt.close()
+
+    print("Tag frequency plot saved as 'tag_frequency_plot.png'")
+
+
+# =================================================================================================
 # Main execution
-vault_path = 'YOUR VAULT PATH HERE!'
+vault_path = 'C:/Users/Quentin Wach/Documents/CloudVault'
 file_count, total_words, tag_counts, files_without_tags_or_links, daily_stats = analyze_vault(vault_path)
 
 print(f"Total files: {file_count}")
@@ -168,6 +210,7 @@ print(f"Files without tags or links: {len(files_without_tags_or_links)}")
 end_date = max(daily_stats.keys())
 start_date = end_date - datetime.timedelta(days=6*30)
 github_style_plot(daily_stats, start_date, end_date)
+create_tag_frequency_plot(dict(Counter(tag_counts).most_common(20)))
 
 # Add tags to files without tags or links
 #add_tags_to_files(vault_path, files_without_tags_or_links, list(tag_counts.keys()))
