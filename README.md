@@ -9,10 +9,9 @@ Again, this script systematically organizes & augments all your notes by
 + 🧠 reading and understanding every note
 + 🏷 remembering potential *tags* and *topics*
 + 🧶 [[linking]] and tagging up what belongs together
-+ 🤯 creating new organizing/header-notes to group together related notes
 + 🎨 graph meta-data of your vault including a GitHub-like activity timeline.
 
-<img align="center" width="100%" margin-left="0px" src="images/vault_activity_heatmap.png"> 
+<img align="center" width="60%" margin-left="0px" src="images/vault_activity_heatmap.png"> 
 
 <!-- Don't worry! The script is hardcoded to ensure **the process is non-destructive!** -->
 
@@ -28,6 +27,7 @@ It is that easy.
 ### 🚀 Feature Ideas
 Of course, there already exist a bunch of native extensions for obsidian.md. But I wanted a custom solution I can quickly change as I want. Maybe so do you. I think it is very powerful and a lot more features can be thought of. Indeed, features for obsidian.md based on LLMs have been discussed [here](https://forum.obsidian.md/t/adding-built-in-llm-ai-support-to-stay-relevant/72954) as well. Some things I am thinking of are:
 
++ creating new organizing/header-notes to group together related notes
 * making this an obsidian-native extension
 * adding meta data automatically
 * live prompting inside obsidian.md
