@@ -16,7 +16,7 @@ Don't worry! The script is hardcoded to ensure **the process is non-destructive!
 ---
 ### ❓ How to Use
 1. Install `Python3`.
-2. Download, drag, and drop this script into your vault that contains all your notes.
+2. Copy-paste the link to your vault's directory and optionally your OpenAI key into the script.
 3. Run the script!
 
 It is that easy.
