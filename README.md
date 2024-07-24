@@ -9,13 +9,16 @@ Again, this script systematically organizes & augments all your notes by
 + 🧠 reading and understanding every note
 + 🏷 remembering potential *tags* and *topics*
 + 🧶 [[linking]] and tagging up what belongs together
-+ 🤯 creating new organizing/header-notes to group together related notes.
++ 🤯 creating new organizing/header-notes to group together related notes
++ 🎨 graph meta-data of your vault including a GitHub-like activity timeline.
 
-Don't worry! The script is hardcoded to ensure **the process is non-destructive!**
+<img align="center" width="100%" margin-left="0px" src="images/vault_activity_heatmap.png"> 
+
+<!-- Don't worry! The script is hardcoded to ensure **the process is non-destructive!** -->
 
 ---
 ### ❓ How to Use
-1. Install `Python3`.
+1. Install `Python3` and `pip install matplotlib openai`.
 2. Copy-paste the link to your vault's directory and optionally your OpenAI key into the script.
 3. Run the script!
 

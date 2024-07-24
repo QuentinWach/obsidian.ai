@@ -2,8 +2,12 @@ import os
 import csv
 import re
 import openai
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
+import datetime
+import matplotlib.pyplot as plt
+import numpy as np
+import calendar
 from api_keys import OpenAI_KEY
 
 # Set your OpenAI API key
@@ -18,11 +22,15 @@ def extract_tags(text):
 def extract_links(text):
     return re.findall(r'\[\[(.+?)\]\]', text)
 
+def get_creation_date(file_path):
+    return datetime.datetime.fromtimestamp(os.path.getctime(file_path)).date()
+
 def analyze_vault(vault_path):
     file_count = 0
     total_words = 0
     all_tags = []
     files_without_tags_or_links = []
+    daily_stats = defaultdict(lambda: {'files': 0, 'words': 0})
     
     csv_data = []
     
@@ -43,6 +51,10 @@ def analyze_vault(vault_path):
                 tags = extract_tags(content)
                 links = extract_links(content)
                 all_tags.extend(tags)
+                creation_date = get_creation_date(file_path)
+                
+                daily_stats[creation_date]['files'] += 1
+                daily_stats[creation_date]['words'] += words
                 
                 if not tags and not links:
                     files_without_tags_or_links.append(file)
@@ -52,14 +64,15 @@ def analyze_vault(vault_path):
                     'word_count': words,
                     'tag_count': len(tags),
                     'link_count': len(links),
-                    'tags': ', '.join(tags)
+                    'tags': ', '.join(tags),
+                    'creation_date': creation_date
                 })
     
     tag_counts = Counter(all_tags)
     
     # Write CSV file
     with open('vault_metadata.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['filename', 'word_count', 'tag_count', 'link_count', 'tags']
+        fieldnames = ['filename', 'word_count', 'tag_count', 'link_count', 'tags', 'creation_date']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for row in csv_data:
@@ -70,7 +83,7 @@ def analyze_vault(vault_path):
         for file in files_without_tags_or_links:
             f.write(f"{file}\n")
     
-    return file_count, total_words, dict(tag_counts), files_without_tags_or_links
+    return file_count, total_words, dict(tag_counts), files_without_tags_or_links, daily_stats
 
 def suggest_tags(content, existing_tags):
     response = openai.ChatCompletion.create(
@@ -94,14 +107,67 @@ def add_tags_to_files(vault_path, files_without_tags_or_links, existing_tags):
             f.seek(0, 0)
             f.write(' '.join([f'#{tag}' for tag in suggested_tags]) + '\n\n' + content)
 
+def github_style_plot(daily_stats, start_date, end_date):
+    # Create a figure and axis
+    fig, ax = plt.subplots(figsize=(6, 2))
+
+    # Calculate the number of weeks
+    weeks = (end_date - start_date).days // 7 + 1
+
+    # Create a matrix to hold our data
+    activity_data = np.zeros((7, weeks))
+
+    # Fill in the activity data
+    for date, stats in daily_stats.items():
+        if start_date <= date <= end_date:
+            week_num = (date - start_date).days // 7
+            day_num = date.weekday()
+            activity_data[day_num, week_num] = stats['words']
+
+    # Create the heatmap
+    cmap = plt.cm.Greens
+    im = ax.imshow(np.log(activity_data), cmap=cmap, aspect='auto')
+
+    # Add white spacing between the cells
+    ax.set_yticks(np.arange(7) - 0.5, minor=True)
+    ax.set_xticks(np.arange(weeks) - 0.5, minor=True)
+    ax.grid(which='minor', color='w', linestyle='-', linewidth=1.5)
+
+
+    # Set up the axes
+    ax.set_yticks(np.arange(7))
+    ax.set_yticklabels(['Mon', 'Wed', "Tue", "Thu", 'Fri', "Sat", 'Sun'])  # Changed this line
+    ax.set_xticks(np.arange(0, weeks, 4))
+    ax.set_xticklabels([calendar.month_abbr[(start_date + datetime.timedelta(weeks=i)).month] 
+                        for i in range(0, weeks, 4)])
+    # Don't show the ticks only their labels
+    ax.tick_params(which='both', width=0)
+    ax.tick_params(which='major', length=10)
+    ax.tick_params(which='minor', length=0)
+
+
+    # Remove the frame
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    plt.title('Vault Activity (Word Count)')
+    plt.tight_layout()
+    plt.savefig('vault_activity_heatmap.png')
+    plt.close()
+
 # Main execution
-vault_path = 'PATH TO YOUR VAULT DIRECTORY!'
-file_count, total_words, tag_counts, files_without_tags_or_links = analyze_vault(vault_path)
+vault_path = 'YOUR VAULT PATH HERE!'
+file_count, total_words, tag_counts, files_without_tags_or_links, daily_stats = analyze_vault(vault_path)
 
 print(f"Total files: {file_count}")
 print(f"Total words: {total_words}")
-print(f"Top 10 tags: {dict(Counter(tag_counts).most_common(20))}")
+print(f"Top 10 tags: {dict(Counter(tag_counts).most_common(10))}")
 print(f"Files without tags or links: {len(files_without_tags_or_links)}")
+
+# Create GitHub-style plot
+end_date = max(daily_stats.keys())
+start_date = end_date - datetime.timedelta(days=6*30)
+github_style_plot(daily_stats, start_date, end_date)
 
 # Add tags to files without tags or links
 #add_tags_to_files(vault_path, files_without_tags_or_links, list(tag_counts.keys()))
