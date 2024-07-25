@@ -198,7 +198,7 @@ def create_tag_frequency_plot(tag_counts, top_n=20):
 
 # =================================================================================================
 # Main execution
-vault_path = 'C:/Users/Quentin Wach/Documents/CloudVault'
+vault_path = 'PATH TO YOUR VAULT!'
 file_count, total_words, tag_counts, files_without_tags_or_links, daily_stats = analyze_vault(vault_path)
 
 print(f"Total files: {file_count}")
