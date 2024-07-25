@@ -1,4 +1,4 @@
-# 🔮 Augmenting Obsidian.md with AI: Automatic Linking, Tagging, and Grouping!
+# 🔮 Augmenting Obsidian.md with AI
 <img align="right" width="40%" margin-left="20px" src="images/1x1_image.png"> 
 
 Quickly organize your markdown notes in Obsidian.md using **OpenAI**’s large language models. Any random, untagged, empty, or unlinked notes? No more. This little script will fill the gaps, connect what belongs together, and even create high level organizing nodes if a specific topic has a lot of notes. 
