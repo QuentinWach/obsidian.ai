@@ -40,13 +40,13 @@ Print out statistics of your vault like how many notes you have, how many words,
 2. **Meta-Stats.**
    1. Count how often each tag is used. Create a tag frequency bar chart.
    2. Count how many words are written over time. Create a vault activity chart.
-...
+
 <!--
-3. **Delete empty notes** from the vault and from the `.csv`.
-4. **Add tags to the tagless.** 
+1. **Delete empty notes** from the vault and from the `.csv` if they have no link.
+2. **Add tags to the tagless.** 
    1. List all the notes without tags.
    2. Go through each file and use GPT + the tag frequency data of the vault to add three tags based on the content that fit it the best.
-5. **Connect lonely notes via referencing links.**
+3. **Connect lonely notes via referencing links.**
    1. List all the notes without any links to other notes.
    2. For every note in this list, list all other notes with the same tags.
       1. Sort these notes based on (number of links x number of words).
@@ -64,4 +64,4 @@ Print out statistics of your vault like how many notes you have, how many words,
 It is that easy.
 
 ---
-> **Give this repo a ⭐** and let me know right here if you have any ideas or reach out to me on **X** [@QuentinWach](https://twitter.com/QuentinWach).
+**Give this repo a ⭐** and let me know right here if you have any ideas or reach out to me on **X** [@QuentinWach](https://twitter.com/QuentinWach).
