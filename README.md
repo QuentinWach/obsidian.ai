@@ -1,6 +1,6 @@
-<img align="right" width="40%" margin-left="20px" src="images/1x1_image.png">
-
 # Obsidian.ai
+
+<img align="right" width="40%" margin-left="20px" src="images/1x1_image.png">
 
 **Quickly organize your markdown notes in Obsidian.md using _**OpenAI**_’s large language models.** 
 
@@ -23,9 +23,10 @@ Print out statistics of your vault like how many notes you have, how many words,
 | :--: | :--: |
 | **a.** Activity map. | **b.** Tag frequency.
 
+<!--
 ---
 ### How Does It Work?
-
+-->
 
 ---
 ### ❓ How to Use
