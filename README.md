@@ -10,13 +10,13 @@ Any random, untagged, empty, or unlinked notes? No more. This little script will
 ### 🧶 Organizes Your Notes
 The script works through your entire vault, letting ChatGPT read and understand every note, remembering potential *tags* and *topics*, and linking and tagging up what belongs together so there are no more empty and lonely notes.
 
-
+<!--
 |<img align="center" width="100%" margin-left="auto" src="images/org_before.png">| <img align="center" width="100%" margin-left="auto" src="images/org_before.png"> |
 | :--: | :--: |
 | **a.** My vault without tags or attachments before organizing it with obsidian.ai. | **b.** My vault after it was organized by obsidian.ai.
+-->
 
-
-### 🎨 Show You Meta-data of Your Vault
+### 🎨 Shows Meta-data of Your Vault
 Print out statistics of your vault like how many notes you have, how many words, how many tags, which tags, and so on. The script also creates a GitHub-like activity timeline and a bar-chart of your most popular tags:
 
 |<img align="center" width="100%" margin-left="auto" src="images/vault_activity_heatmap.png">| <img align="center" width="100%" margin-left="auto" src="images/tag_frequency_plot.png"> |
